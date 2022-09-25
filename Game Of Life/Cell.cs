@@ -23,12 +23,15 @@ namespace Game_Of_Life
 
         public void PaintCell(SolidBrush brush, Graphics g)
         {
+            Rectangle rectangle = new Rectangle(X * 20, Y * 20, Width, Height);
+
             if (IsAlive)
                 brush.Color = Color.White;
             else
                 brush.Color = Color.Black;
 
-            g.FillRectangle(brush, new Rectangle(X * 20, Y * 20, Width, Height));
+            g.FillRectangle(brush, rectangle);
+
         }
     }
 }

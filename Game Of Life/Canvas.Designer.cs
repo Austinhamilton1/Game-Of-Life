@@ -28,7 +28,13 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
+            this.Clock = new System.Windows.Forms.Timer(this.components);
             this.SuspendLayout();
+            // 
+            // Clock
+            // 
+            this.Clock.Tick += new System.EventHandler(this.Clock_Tick);
             // 
             // Canvas
             // 
@@ -41,10 +47,15 @@
             this.MaximizeBox = false;
             this.Name = "Canvas";
             this.Text = "Game of Life";
+            this.Paint += new System.Windows.Forms.PaintEventHandler(this.Canvas_Paint);
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Canvas_KeyDown);
+            this.MouseClick += new System.Windows.Forms.MouseEventHandler(this.Canvas_MouseClick);
             this.ResumeLayout(false);
 
         }
 
         #endregion
+
+        private System.Windows.Forms.Timer Clock;
     }
 }
