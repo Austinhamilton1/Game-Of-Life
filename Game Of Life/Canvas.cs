@@ -8,6 +8,9 @@ namespace Game_Of_Life
         bool isPlaying = false;
         bool editMode = true;
 
+        public Color AliveColor { get; set; }
+        public Color DeadColor { get; set; }
+
         public Canvas()
         {
             InitializeComponent();
@@ -24,15 +27,18 @@ namespace Game_Of_Life
                     cells[i, j] = new Cell(i, j);
                 }
             }
+
+            AliveColor = Color.White;
+            DeadColor = Color.Black;
         }
 
-        private void PaintCells()
+        public void PaintCells()
         {
             for (int i = 0; i < cells.GetLength(0); i++)
             {
                 for (int j = 0; j < cells.GetLength(1); j++)
                 {
-                    cells[i, j].PaintCell(brush, g);
+                    cells[i, j].PaintCell(brush, g, AliveColor, DeadColor);
                 }
             }
         }
@@ -145,7 +151,9 @@ namespace Game_Of_Life
             }
             else if (e.KeyCode == Keys.Escape)
             {
-                //Add a menu here to do some cool stuff
+                Menu menu = new Menu(this);
+
+                menu.ShowDialog();
             }
         }
 
@@ -161,6 +169,34 @@ namespace Game_Of_Life
                 cells[x, y].IsAlive ^= true;
 
                 PaintCells();
+            }
+        }
+
+        public void Randomize(int randomFactor)
+        {
+            if (randomFactor > 0)
+            {
+                Random random = new Random();
+                for (int i = 0; i < cells.GetLength(0); i++)
+                {
+                    for (int j = 0; j < cells.GetLength(1); j++)
+                    {
+                        int value = random.Next(100);
+                        if (value < randomFactor)
+                            cells[i, j].IsAlive = true;
+                    }
+                }
+            }
+        }
+
+        public void ClearBoard()
+        {
+            for (int i = 0; i < cells.GetLength(0); i++)
+            {
+                for (int j = 0; j < cells.GetLength(1); j++)
+                {
+                    cells[i, j].IsAlive = false;
+                }
             }
         }
     }

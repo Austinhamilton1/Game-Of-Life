@@ -21,14 +21,14 @@ namespace Game_Of_Life
             IsAlive = false;
         }
 
-        public void PaintCell(SolidBrush brush, Graphics g)
+        public void PaintCell(SolidBrush brush, Graphics g, Color alive, Color dead)
         {
             Rectangle rectangle = new Rectangle(X * 20, Y * 20, Width, Height);
 
             if (IsAlive)
-                brush.Color = Color.White;
+                brush.Color = alive;
             else
-                brush.Color = Color.Black;
+                brush.Color = dead;
 
             g.FillRectangle(brush, rectangle);
 
